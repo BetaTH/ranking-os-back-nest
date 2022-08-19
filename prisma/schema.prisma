@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model operador_tb {
+  id       Int    @id @default(autoincrement())
+  operador String
+}
+
+model zona_tb {
+  id   Int    @id @default(autoincrement())
+  zona String
+}
+
+model equipes_tb {
+  id               Int     @default(autoincrement())
+  equipe           String  @id
+  linkFoto         String  @default("")
+  transportePadrao String  
+  os               os_tb[]
+}
+
+model transporte_tb {
+  id         Int    @id @default(autoincrement())
+  transporte String
+}
+
+model tipo_os_tb {
+  id     Int    @id @default(autoincrement())
+  tipoOS String
+  pontos Float
+}
+
+model taxa_tb {
+  id   Int    @id @default(autoincrement())
+  taxa String
+}
+
+model os_tb {
+  idOS           String     @id @default(uuid())
+  cliente        String
+  operador       String
+  tipoOS         String
+  zona           String
+  equipe         String
+  transporte     String
+  dataEdicao     DateTime   @updatedAt
+  dataInsercao   DateTime
+  dataAbertura   DateTime
+  dataFechamento DateTime
+  taxa           String     @default("Não")
+  correcao       String     @default("Não")
+  trs            String
+  trsMin         Int
+  pontos         Float
+  equipes_tb     equipes_tb @relation(fields: [equipe], references: [equipe])
+}
