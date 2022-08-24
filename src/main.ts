@@ -2,8 +2,10 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
-const env_cors = process.env.ORIGINS_CORS
-const origin = env_cors.split(" , ")
+const env_cors = process.env.ORIGINS_CORS ?? null
+const origin = env_cors ? env_cors.split(" , ") : "*"
+
+console.log(origin)
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
