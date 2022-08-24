@@ -9,16 +9,18 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 
+const env_cors = process.env.ORIGINS_CORS
+const origin = env_cors.split(" , ")
+
 const options = {
   cors: {
-    origin: '*',
+    origin: origin,
     methods: ['GET', 'POST', 'UPDATE', 'DELETE', 'PUT'],
   },
 };
 @WebSocketGateway(options)
 export class SocketGateway
-  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
-{
+  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() io: Server;
   private logger: Logger = new Logger('AppGateway');
 
