@@ -9,8 +9,8 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 
-const env_cors = process.env.ORIGINS_CORS
-const origin = env_cors.split(" , ")
+const env_cors = process.env.ORIGINS_CORS ?? null
+const origin = env_cors ? env_cors.split(" , ") : "*"
 
 const options = {
   cors: {
