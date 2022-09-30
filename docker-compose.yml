@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+    app:
+        build: .
+        working_dir: /app
+        ports: 
+            - 3001:5000
+        restart: "always"
+        command: npm run start
+        container_name: app_nest
